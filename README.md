@@ -26,7 +26,9 @@ Code for analyzing CODEX multiplex immunofluorescence imaging in Kousa et al., 2
 
 ## Code environment details
 
-- kousa_2026_codex_env.yml -- Conda environment used to run python code
+- kousa_2026_codex_env.yml -- Conda environment used to run python code except for Cellpose segmentation. 
+
+- cellpose_env.yml -- Conda environment used to run Cellpose.
 
 - spacec_gpu_build.dockerfile -- Dockerfile used to run SPACEc.
 
