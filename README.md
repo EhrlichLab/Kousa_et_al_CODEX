@@ -30,4 +30,6 @@ Code for analyzing CODEX multiplex immunofluorescence imaging in Kousa et al., 2
 
 - spacec_gpu_build.dockerfile -- Dockerfile used to run SPACEc.
 
+- Kousa_2026_R_session_info.txt -- R sessionInfo() output used to run thymocyte_DP_P_Q_freq_plot.qmd.
+
 - Images were visualized using QuPath version 0.5.1. 
