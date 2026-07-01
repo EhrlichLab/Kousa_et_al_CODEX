@@ -1,0 +1,6 @@
+name: mesmer_pypi
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+prefix: /stor/work/Ehrlich/Users/John/mamba/envs/mesmer_pypi
