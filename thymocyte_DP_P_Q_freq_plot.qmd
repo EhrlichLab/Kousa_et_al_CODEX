@@ -1,5 +1,5 @@
 ---
-title: "Untitled"
+title: "Thymocyte DP(P) and DP(Q) Freq. plot"
 format: html
 editor: visual
 ---
@@ -11,7 +11,6 @@ library(dplyr)
 library(scales)
 data_dir= "/stor/scratch/Ehrlich/MxIF/aging_thymus/human_images/human_blocks/"
 ```
-
 
 ```{r}
 age_levels = c(
@@ -37,59 +36,9 @@ merged_ct_df = as.data.frame(fread(file.path(data_dir, "all_propagated_annotatio
   dplyr::mutate(just_age = gsub("(F|M)$", "", age))
 merged_ct_df = merged_ct_df %>% mutate(just_age = factor(just_age, levels = age_levels), 
                                        core_tag = factor(core_tag, levels= core_tag_levels))
-
-
-
-# age_levels = c(
-#   "Fetal" = "18wk", 
-#   "Fetal" = "20wk", 
-#   "0-8" "0.003", "0.008", "0.013", "0.013", "0.021", "0.025",  "0.3", "0.333", "0.833", "0.917", "1","1.166", "1.583",  "2",  "7", "8",  
-#   "17", "21", "22", "29", 
-#   "38", "54", "58", "64", "67"             
-# )
 ```
 
-
 ```{r}
-# Cell type frequency with age. I'm thinking a stacked bar chart here, but really I prefer faceting 
-merged_ct_df %>% 
-  group_by(core_tag) %>% 
-  mutate(n_sample = n()) %>% 
-  group_by(core_tag, ct_svm_pred) %>% 
-  mutate(n_ct = n(), 
-         prop_ct = n_ct / n_sample) %>% 
-  dplyr::select(core_tag, sample, just_age, ct_svm_pred, prop_ct)
-  
-
-
-```
-
-
-```{r}
-# Thymocyte frequency with age. I'm thinking a stacked bar chart here, but really I prefer faceting 
-thym_age = merged_ct_df %>% 
-  dplyr::filter(ct_svm_pred == "Thymocyte") %>% 
-  group_by(core_tag) %>% 
-  mutate(n_sample = n()) %>% 
-  group_by(core_tag, thym_ct_svm_pred) %>% 
-  mutate(n_ct = n(), 
-         prop_ct = n_ct / n_sample) %>% 
-  dplyr::select(core_tag, subject_id, just_age, thym_ct_svm_pred, prop_ct, n_sample, n_ct) %>% 
-  distinct() 
- 
-ggplot(thym_age, aes(x= core_tag, y= prop_ct)) + 
-  geom_col() + 
-  facet_wrap(~thym_ct_svm_pred) +
-  theme(axis.text.x= element_text(angle=90))
-  
-
-
-```
-
-
-
-```{r}
-# Do DP_P decline with age out of thymocytes? 
 dp_age = merged_ct_df %>% 
   dplyr::filter(thym_ct_svm_pred %in% c("DP_P", "DP_Q")) %>% 
   group_by(core_tag) %>% 
@@ -114,8 +63,4 @@ ggsave(filename= file.path("/stor/work/Ehrlich/Users/John/projects/aging_thymus/
        plot= DP_P_Q_prop, 
        height= 5, 
        width = 10)
-
-
 ```
-
-
